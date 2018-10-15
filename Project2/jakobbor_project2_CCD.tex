@@ -1,0 +1,114 @@
+\documentclass{emulateapj}
+%\documentclass[12pt,preprint]{aastex}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{epsfig,floatflt}
+
+
+
+\begin{document}
+
+\title{A spectacular title}
+
+\author{Ola D. Nordmann}
+
+\email{ola.d.nordmann@astro.uio.no}
+
+\altaffiltext{1}{Institute of Theoretical Astrophysics, University of
+  Oslo, P.O.\ Box 1029 Blindern, N-0315 Oslo, Norway}
+
+
+%\date{Received - / Accepted -}
+
+\begin{abstract}
+  State problem. Briefly describe method and data. Summarize main results.
+\end{abstract}
+\keywords{cosmic microwave background --- cosmology: observations --- methods: statistical}
+
+\section{Introduction}
+\label{sec:introduction}
+
+Discuss background, physical importance and possibly some history of
+the problem that is being studied in this paper.
+
+
+\section{Method}
+\label{sec:method}
+
+
+Describe method. Define data model and likelihood. Outline how the
+likelihood was computed (grid or MCMC).
+
+Define the power law model in terms of $Q$ and $n$. 
+
+\section{Data}
+\label{sec:data}
+
+Summarize properties of data. Which data are used (experiment,
+frequencies etc.)? Pixel resolution ($N_{\textrm{side}}$),
+$\ell_{\textrm{max}}$ -- everything necessary to repeat the analysis
+for other researchers.
+
+Show a sky map of the smoothed data. Use the Healpix routine
+``smoothing'' to do this; it works just like anafast. Smooth with a
+$7^{\circ}$ beam, and plot with ``map2gif''. Show the RMS pattern as
+well. 
+
+\section{Results}
+\label{sec:results}
+
+
+Show the 2D likelihood contours. Summarize constraints on $Q$ and
+$n$. 
+
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+Summarize results. Discuss their importance, referring to the
+discovery to the initial seeds for structure formation. Mention that
+these results are in good agreement with expectations from
+inflationary theory.
+
+
+
+%\begin{figure}[t]
+%
+%\mbox{\epsfig{figure=filename.eps,width=\linewidth,clip=}}
+%
+%\caption{Description of figure -- explain all elements, but do not
+%draw conclusions here.}
+%\label{fig:figure_label}
+%\end{figure}
+
+
+
+\begin{deluxetable}{lccc}
+%\tablewidth{0pt}
+\tablecaption{\label{tab:results}}
+\tablecomments{Summary of main results.}
+\tablecolumns{4}
+\tablehead{Column 1  & Column 2 & Column 3 & Column 4}
+\startdata
+Item 1 & Item 2 & Item 3 & Item 4
+\enddata
+\end{deluxetable}
+
+
+
+\begin{acknowledgements}
+  Who do you want to thank for helping out with this project?
+\end{acknowledgements}
+
+\begin{thebibliography}{}
+
+\bibitem[G{\'o}rski et al.(1994)]{gorski:1994} G{\'o}rski, K. M.,
+  Hinshaw, G., Banday, A. J., Bennett, C. L., Wright, E. L., Kogut,
+  A., Smoot, G. F., and Lubin, P.\ 1994, ApJL, 430, 89
+
+\end{thebibliography}
+
+
+\end{document}

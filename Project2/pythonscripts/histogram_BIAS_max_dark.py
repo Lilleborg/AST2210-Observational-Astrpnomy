@@ -22,24 +22,24 @@ def info(im1):
 	Returns mean, min and max of pixel values, as well as index of max value
 	@ im1 - 2D array image
 	"""
-	return [np.mean(im1),im1.min(),im1.max(),\
+	return [im1.mean(),im1.min(),im1.max(),\
 			np.unravel_index(im1.argmax(),im1.shape)]
 
 def print_info(im,name):
 	print ('For '+name)
 	infom = info(im)
-	print ('Mean, minimum, maxima pixel values: '\
+	print ('Mean, minimum, maximum pixel values: '\
 			+'{:.3f}, {:.1f}, {:.1f}'.format(*infom[:-1]))
-	print ('Index of maxima: {:s}'.format(infom[-1])+'\n')
+	print ('Index of maximum: {:s}'.format(infom[-1])+'\n')
 
 if __name__ == '__main__':
 	# Path extension
 	path = '../images/ex3_4_5/'
 
 	# Read images
-	im_bias = reading(path+'bias_min_expo1.bmp')
-	im_dark_max = reading(path+'dark_max_expo.bmp')
-
+	im_bias = reading(path+'bias_min_expo1.bmp',hole=True)
+	im_dark_max = reading(path+'dark_max_expo.bmp',hole=True)
+	print im_bias.shape
 	print_info(im_bias,'First bias')
 	print_info(im_dark_max,'Max exposure dark')
 
@@ -54,14 +54,14 @@ if __name__ == '__main__':
 	plt.figure(1)
 	plt.title('Historgram pixel value bias1 frame')
 	plt.bar(bins_bias[:-1],hist_bias,width=bins_bias[-1]/100)
-	plt.xlabel('Pixel value, intensity')
+	plt.xlabel('Pixel value')
 	plt.ylabel('Number of pixels')
 	plt.savefig('hist_pixel_bias1.pdf')
 
 	plt.figure(2)
 	plt.title('Historgram pixel value max expo dark frame')
 	plt.bar(bins_dark[:-1],hist_dark,width=bins_dark[-1]/100)
-	plt.xlabel('Pixel value, intensity')
+	plt.xlabel('Pixel value')
 	plt.ylabel('Number of pixels')
 	plt.savefig('hist_pixel_darkmax.pdf')
 	plt.show()

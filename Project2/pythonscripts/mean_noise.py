@@ -41,14 +41,13 @@ if __name__ == '__main__':
 	RON = g*noise_one_bias
 
 	# Printing
-	print 'Bias in terms of pixel values:'
-	print 'Mean value of two bias frames: {:.3f}'.format(mean_bias)
-	print 'Noise of two bias frames: {:.3f}\n'.format(noise_bias)
-	print 'Flatfield in terms of pixel values:'
-	print 'Mean value of two flat frames: {:.3f}'.format(mean_dark)
-	print 'Noise of two flat frames: {:.3f}\n'.format(noise_dark)
+	print_info(im_bias1+im_bias2,'Composite bias')
+	print 'Noise of two bias frames: {:.5f}\n'.format(noise_bias)
+	print 'Noise of a single bias frame: {:.5f}\n'.format(noise_one_bias)
+	print_info(im_flat1+im_flat2,'Composite flat')
+	print 'Noise of two flat frames: {:.5f}\n'.format(noise_dark)
 	print 'Conversion factor:'
-	print 'Value in electrons/ADU: {:.3f}\n'.format(g)
+	print 'Value in electrons/ADU: {:.5f}\n'.format(g)
 	print 'Readout noise:'
-	print 'Noise from one bias frame in electrons: {:.3f}'.format(RON)
+	print 'Noise from one bias frame in electrons: {:.5f}'.format(RON)
 

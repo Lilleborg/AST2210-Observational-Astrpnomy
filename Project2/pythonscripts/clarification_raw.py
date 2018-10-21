@@ -57,7 +57,7 @@ if __name__ == '__main__':
 	sumrows = np.sum(corrected_I,axis=1)/752	# mean row values
 	
 	shiningrows = corrected_I[sumrows>shine_crit]	# rows with high brightness
-	focus = shiningrows[1]							# focus row for minimas
+	focus = shiningrows[1]	# focus row for minimas
 	minimas = np.asarray(np.nonzero(focus<=mini_crit))[0]	# minimas indices
 	truemini = [minimas[4]]	# picked start, 
 	for i in range(1,len(minimas)):

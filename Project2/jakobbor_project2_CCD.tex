@@ -36,7 +36,7 @@
 
 \begin{document}
 
-\title{Charge-coupled device detectors}
+\title{On RGB color and monochromatic Charge-coupled device detectors}
 
 \author{Jakob Borg}
 
@@ -46,17 +46,17 @@
   Oslo, P.O.\ Box 1029 Blindern, N-0315 Oslo, Norway}
   
 \begin{abstract}
-  State problem. Briefly describe method and data. Summarize main results.
+  We explored the use of monochromatic CCD detectors for imaging in observational astronomy by recording and correcting a raw image of a single slit diffraction pattern. In addition we looked at some of the difficulties introduced when using a RGB color CCD without correcting for chromatic aberrations. For the correction process of the raw image multiple frames for bias, dark current and flat field where recorded and the contributed noise analyzed. From the flat frames, corrected for bias, the electron-to-ADU conversion factor of the camera was found to $79.228$. With this gain we found the readout noise from the detector in electrons to $34.357$. We found the normalized noise in composite flat field frames to decrease by the inverse square root of the number of pairs used, exactly as expected. The raw image was corrected by constructing a master flat field and a composite dark current frame. From the corrected image we calculated the width of the pixels in the CCD to be $6.308 \pm 0.2 \,\mu$m using the known properties of the diffraction pattern. The correction process did not remove the most substantial impurities in the raw image. This may be attributed to the poor way the flat field frames recorded, where we changed the optical path of the system too much.
 \end{abstract}
-\keywords{cosmic microwave background --- cosmology: observations --- methods: statistical}
+\keywords{Color RGB CCD camera --- Monochromatic CCD camera --- Statistical analysis of noise and calibration data}
 
 \section{Introduction}
 \label{sec:introduction}
 Historically many different mediums for capturing exposures in astronomical photography have been used, including film and different kinds of photographic plates. Whenever an exposure is captured some of the information from the incoming photons is lost in the process. Also noise and other limitations of the capturing method is introduced. This results in the exposure not representing the object we observe accurately. Understanding these limitations and sources of noise is crucial in astronomy, where we often observe very distant and faint objects, so that few of the initially emitted photons reach our telescopes and detectors.
 
-Ever since Willard Boyle and George E. Smith invented the Charge-Coupled Device (CCD) in 1969 \citep{PattentCCD} they have become increasingly more popular in astronomy as our technology has improved. CCDs have an array of sensitive detectors that converts the energy of photons hitting them into electric charges. These charges can then be manipulated by potential wells which moves the charges to a register to be read. In additions to high accuracy, the CCD registers the exposures digitally. Each detector acts as a pixel in our image, where the amount of charge registered is proportional to the light intensity and may be converted to a pixel value using analog-to-digital units (ADU). This way it's easier to correct the raw image for noise and other limitations as well as perform statistical analysis and editing.
+Ever since Willard Boyle and George E. Smith invented the Charge-Coupled Device (CCD) in 1969 \citep{PattentCCD} they have become increasingly more popular in astronomy as our technology has improved. CCDs have an array of sensitive detectors that converts the energy of photons hitting them into electric charges quantified by electrons. These electrons can then be manipulated by potential wells which moves the charges to a register to be read. In addition to high accuracy, the CCD registers the exposures digitally. Each detector acts as a pixel in our image, where the amount of charge registered is proportional to the light intensity and may be converted to a pixel value using analog-to-digital units (ADU). This way it's easier to correct the raw image for noise and other limitations as well as perform statistical analysis and editing.
 
-Some of the most important features in a detector is it's resolution, quantum efficiency, amount of thermal noise, spectral response, dynamical range and bit depth. With the steady improvement in technology over the years the CCDs have become extremely accurate for their cost and size compared to prior analog methods. We have made tinier and more versatile detectors, cheaper and cheaper. With smaller and more numerous pixels the resolution has increased. They also have a quantum efficiency approaching the maximum possible. Usually in the range of $90\%$ to $100\%$, so that as many of the photons as possible is registered. This efficiency is reached for a broad range of wavelengths as the spectral response of the detectors has improved. With a high linear dynamical range we can resolve details in both dim and bright parts of the signal at the same time. And with a high bit depth we can differentiate tiny deviations between neighboring pixels. All of these features makes the CCD cameras particularly useful in astronomy. They are in use in most of the modern space telescopes and observatories. 
+Some of the most important features in a detector is it's resolution, quantum efficiency, amount of thermal noise, spectral response, dynamical range and bit depth. With the steady improvement in technology over the years the CCDs have become extremely accurate for their cost and size compared to prior analog methods. We have made tinier and more versatile detectors, cheaper and cheaper. With smaller and more numerous pixels the maximum resolution has increased. The detectors also have a quantum efficiency approaching the maximum possible. Usually in the range of $90\%$ to $100\%$, so that as many of the photons as possible is registered. This efficiency is reached for a broad range of wavelengths as the spectral response of the detectors has improved. With a high linear dynamical range we can resolve details in both dim and bright parts of the signal at the same time. And with a high bit depth we can differentiate tiny deviations between neighboring pixels. All of these features makes the CCD cameras particularly useful in astronomy. They are in use in most of the modern space telescopes and observatories. 
 
 In this paper our goal is first to explore some of the properties of a standard color CCD camera. Then we go through the process of taking a well exposed image using a monochromatic CCD camera, record calibration data and process the raw image to remove noise. The main focus will be oriented around the second part. As we will see, monochromatic cameras are most used in astronomy.
 
@@ -65,17 +65,17 @@ In this paper our goal is first to explore some of the properties of a standard 
 For the two cameras we used similar experimental setups, where we switch out a few key features. The main components are an externally powered light source projecting light through a filter piece and made parallel in a collimator tube. The parallel light then passes an aperture and is recorded in the camera. The cameras are controlled and output directly into a graphical user interface (GUI) on a computer.
 \subsection{Exploring color CCD properties}
 \label{subsec: Data/color CCD}
-We used a white light lamp to produce light of different wavelengths in the visible spectrum. As filter piece we used a dampening filter to reduce the light intensity to not over expose the image or damage the camera. We used a singlet lens as aperture $7.3 \pm 0.2$ cm from the tube to focus the light onto a microscopic objective with a $M=20x$ magnifying effect. We recorded the exposure with a 8 bit color Edmund Optics USB camera. The camera properties is tuned to:
+We used a white light lamp to produce light of different wavelengths in the visible spectrum. As filter piece we used a dampening filter to reduce the light intensity to not over expose the image or damage the camera. We used a singlet lens as aperture $7.3 \pm 0.2$ cm from the tube to focus the light onto a microscopic objective with a $M=20x$ magnifying effect. We recorded the exposure with a 8 bit color Edmund Optics USB camera. The camera properties are tuned to:
 \begin{itemize}
 \item Pixel clock: $24$ MHz
 \item frame rate: $8.86$ fps
 \item Exposure time: $4.794$ ms
 \end{itemize}
 Schematic of the setup in \cref{fig: Setup white}.
-\subsection{Taking well exposed monochromatic exposure}
+\subsection{Taking a well exposed monochromatic exposure}
 \label{subsec: Data/mono CCD}
-We used a red Helium-Neon laser with a wavelength of $\lambda = 635$ nm. To produce an image with interesting features to analyze we used a single slit with an opening $a = 100$ $\mu$m. The slit reduces the light intensity, so we also switched out the filter by an extension piece without filtering of the same length as the dampening filter to minimize the change in the light path through the collimator tube. We use a 8 bit monochromatic Edmund Optics USB camera with an extension tube of length $L = 7.5 \pm 0.2$ cm attached to the lens. The slit is then placed in the opening of the tube projecting a diffraction pattern for the camera to record. 
-The camera properties is tuned to :
+We used a red Helium-Neon laser with a wavelength of $\lambda = 635$ nm. To produce an image with interesting features to analyze we used a single slit with an opening $a = 100$ $\mu$m. The slit reduces the light intensity, so we also switched out the filter by an extension piece without filtering. The extension piece was of the same length as the dampening filter to minimize the change in the light path through the collimator tube. We used a 8 bit monochromatic Edmund Optics USB camera with an extension tube of length $L = 7.5 \pm 0.2$ cm attached to the lens. The slit was then placed in the opening of the tube projecting a diffraction pattern for the camera to record. 
+The camera properties are tuned to:
 \begin{itemize}
 \item Pixel clock: $19$ MHz
 \item frame rate: $3.92$ fps
@@ -105,9 +105,9 @@ Schematic of the setup in \cref{fig: Setup red}.
 \label{subsec: Method/color CCD}
 We calibrated the setup using a red laser to find the focal point of the thin singlet lens. Parallel light focused by a circular aperture produces an Airy disc \citep{lab1}, which we used to control the alignment of the lens in the optical axis. By requiring an even and circular Airy disc we minimized the effect of comatic aberrations, which occur if the plane of the lens is not normal to the optical axis.
 
-After calibration we changed the light source to the mentioned white lamp and viewed the exposure on the graphical used interface (GUI) connected to the camera. Here we experimented with adjusting the cameras pixel clock, frame rate and exposure time to see how they effected the exposure.
+After calibration we changed the light source to the mentioned white lamp and viewed the exposure on the GUI connected to the camera. Here we experimented with adjusting the cameras pixel clock, frame rate and exposure time to see how they effected the exposure.
 
-The GUI allowed us to look at the registered pixel count in a slice of the image for each color red green and blue (RGB) through a histogram. Due to chromatic aberrations, different wavelengths of light have different focal lengths, which is not accounted for by a singlet lens. Therefore we adjusted the position of the objective slightly back and forth to find the focal length of the different colors, defined by the point where we reached the highest registered intensity in RGB pixels. The maximum found pixel count in each color was measured using a ruler directly on the output screen and measuring the relative height of the peak in each color. Then the pixel count is calculated with uncertainties form the lengths. An example of how the histogram looked for the green maximum is included in appendix \ref{asec: Additional figures} \cref{fig: Pixel count green}.
+The GUI allowed us to look at the registered pixel count in a slice of the image for each color red, green and blue (RGB) through a histogram. Due to chromatic aberrations, different wavelengths of light have different focal lengths, which is not accounted for by a singlet lens. Therefore we adjusted the position of the objective slightly back and forth to find the focal length of the different colors, defined by the point where we reached the highest registered intensity in RGB pixels. The maximum found pixel count in each color was measured using a ruler directly on the output screen and measuring the relative height of the peak in each color. Then the pixel count is calculated with uncertainties form the lengths. An example of how the histogram looked for the green maximum is included in appendix \ref{asec: Additional figures} \cref{fig: Pixel count green}.
 
 \subsection{Monochromatic CCD experiment, single slit}
 \label{subsec: Method/Record mono CCD}
@@ -120,7 +120,7 @@ In our exposure of the diffraction pattern we are not concerned by the intensity
 
 \subsubsection{Recording calibration data}
 \label{subsubsec: Method/Calibration data}
-We turned of the light source and removed the camera from the optical path of the setup. Then recorded multiple frames to be used for correcting the raw image for bias, dark current and flat field. For the correction frames we used the same pixel clock and frame rate as for the raw image given in \cref{subsec: Data/mono CCD}, while adjusting the exposure time.
+We turned of the light source and removed the camera from the optical path of the setup. Then recorded multiple frames to be used for correcting the raw image for bias, dark current and flat field. For the correction frames we used the same pixel clock and frame rate as for the raw image, given in \cref{subsec: Data/mono CCD}, while adjusting the exposure time.
 
 \paragraph{Flat field frames}
 Flat field correction compensates for variations in quantum efficiency from pixel to pixel through the hole field of view, as well as imperfections in the optical path. We recorded $16$ basic flat field frames. Here we used a white sheet of paper held at an angle to reflect a uniform field of light from the ceiling into the camera. To do this we had to move the CCD camera out of the optical path of the system to face the white paper. We adjusted the exposure time to $0.762$ ms so that the average pixel value in the recording is about one-third of the maximum value.
@@ -158,7 +158,7 @@ From the addition rules of variance for $n$ uncorrelated variables \citep{STKbok
 Using \cref{eq: Composite mean} we found the mean of the pixel values in the composite bias frame, $\overline{B}_1 + \overline{B}_2$. The non-static noise, $\sigma_{(B_1-B_2)}$, is found from the standard deviation. The same procedure on two of the flat frames gives $\overline{F}_1 + \overline{F}_2$ and $\sigma_{(F_1-F_2)}$.
 
 \paragraph{Read out noise in electrons}
-As the signal is converted to ADU, there is a conversion factor $g$ which relates the pixel counts to the actual number of measured electrons. The number of detected electrons are a positive discrete value, so we expect the signal to follow Poisson statistics \citep{STKbok} measured in electrons, such that $\sigma_{electrons} = \sqrt{F_{electrons}}$. As the signal is converted using $g$ our actual measurements are $g\sigma_{electrons} = \sqrt{gF_{electrons}}$. Solving for $g$ and correcting for bias and bias noise we found the value of the conversion factor by
+As the signal is converted to ADU, there is a conversion factor $g$ which relates the pixel counts to the actual number of measured electrons. The number of detected electrons are a positive discrete value, so we expect the signal to follow Poisson statistics \citep{STKbok} measured in electrons, such that $\sigma_{electrons} = \sqrt{F_{electrons}}$. As the signal is converted using $g$, our actual measurements are $g\sigma_{electrons} = \sqrt{gF_{electrons}}$. Solving for $g$ and correcting for bias and bias noise we found the value of the conversion factor by
 \begin{equation}
 	g = \frac{F_{electrons}}{\sigma_{electrons}^2} = \frac{\qty(\overline{F}_1 + \overline{F}_2) - \qty(\overline{B}_1 + \overline{B}_2)}{\sigma_{(F_1-F_2)}-\sigma_{(B_1-B_2)}}
 	\label{eq: Conversion factor}
@@ -179,7 +179,7 @@ The R.O.N. in electrons was computed using the conversion factor and the noise f
 
 \subsubsection{Normalized noise from composite frames}
 \label{subsubsec: Method/Normalized noise}
-By adding multiple pairs of correction frames we even out the random noise from each frame, but in the process amplify the static noise that overlap in multiple (or all) frames. To account for this we normalized the noise by the number of pairs used. The normalization of multiple frames results in a net reduction in the noise by a factor of $\sqrt{n}$, as shown in appending \ref{asubsub: Normalized noise}. We calculated the normalized noise for successively more pairs of flat field frames. Then the normalized noise together with the theoretical expectation where plotted against the number of pairs and compared. 
+By adding multiple pairs of correction frames we even out the random noise from each frame, but in the process amplify the static noise that overlap in multiple (or all) frames. To account for this we normalized the noise by the number of pairs used. The normalization of multiple frames results in a reduction in the noise by a factor of $\frac{1}{\sqrt{n}}$, as shown in appending \ref{asubsub: Normalized noise}. We calculated the normalized noise for successively more pairs of flat field frames. Then the normalized noise together with the theoretical expectation where plotted against the number of pairs and compared. 
 
 \subsubsection{Correcting raw image}
 In the process of correcting the raw image we used a combination of the same statistical methods used on the calibration frames. First we found the average of all the flat field frames and the dark current frames with the same exposure.
@@ -208,7 +208,7 @@ We used the corrected image to calculate the size of the pixels in the CCD camer
 	m\lambda = a\sin(\theta)
 	\label{eq: Single slit diffraction}
 \end{equation}
-where $\lambda$ is the wavelength, $a$ is the slit width and $m$ is the order of the minimum at angle $\theta$ from the center maximum. A sketch of the system is displayed in \cref{fig: Diffraction measurements}. The number of pixels $n_p$ with width $w_p$ to minimum $m=4$ was found numerically by the intensity in the corrected image. To do this we found a row along the image array crossing the trenches in the pattern with high mean value. To minimize the uncertainty in $n_p$ we found the number of pixels between the fourth order minima on both sides of the center and divided by $2$. Then the angle $\theta$ was found by $\tan(\theta) = \frac{n_pw_p}{L}$. We know the diffraction pattern is in the Fraunhofer regime \citep{Fraunhofer}, so we used the small angle approximation
+where $\lambda$ is the wavelength, $a$ is the slit width and $m$ is the order of the minimum at angle $\theta$ from the center maximum. A sketch of the geometry is displayed in \cref{fig: Diffraction measurements}. The number of pixels $n_p$ with width $w_p$ to minimum $m=4$ was found numerically by the intensity in the corrected image. To do this we found a row along the image array crossing the trenches in the pattern with high mean value. To minimize the uncertainty in $n_p$ we found the number of pixels between the fourth order minima on both sides of the center and divided by $2$. Then the angle $\theta$ was found by $\tan(\theta) = \frac{n_pw_p}{L}$. We know the diffraction pattern is in the Fraunhofer regime \citep{Fraunhofer}, so we used the small angle approximation
 \begin{equation}
 	\tan(\theta) \approx \sin(\theta) \approx \theta \approx \frac{n_pw_p}{L}.
 	\label{eq: Small angle}
@@ -219,7 +219,7 @@ The width of the pixels was then calculated as
 	\\
 	\qq*{with uncertainty} \frac{\delta w_p}{w_p} &= \sqrt{\qty(\frac{\delta L}{L})^2+\qty(\frac{\delta n_p}{n_p})^2} \label{eq: pixel width unc}
 \end{align}
-where we neglect the uncertainties in $a$ and $\lambda$ as they are negligible.
+where we neglect the uncertainties in $a$ and $\lambda$ as they are negligible compared to $L$ and $n_p$.
 
 \begin{figure}
 	\centering
@@ -247,8 +247,14 @@ We found the red light to have focal point furthest from the camera, blue light 
 	\item Green: $172 \pm 37$
 	\item Blue: $27 \pm 6$
 \end{itemize}
-The captured images of the Airy disc and and the images taken at the focal point of each color is included in appendix \ref{asec: Additional figures}.
+The captured images of the Airy disc is shown in \cref{fig: Airy disc}. The images taken at the focal point of each color is included in appendix \ref{asec: Additional figures}.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{./images/ex2/cali_white.pdf}
+	\caption{The Airy disc formed from the singlet lens and captured using the color RGB CCD camera.}
+	\label{fig: Airy disc}
+\end{figure}
 \subsection{Monochromatic experiment}
 \label{subsec: Results/ mono exp}
 
@@ -307,7 +313,7 @@ where we add a fair but substantial uncertainty to account for errors. Eq. (\ref
 \begin{deluxetable}{lccccc}
 \tablewidth{0pt}
 \tablecaption{\label{tab: Statistical values calibration}}
-\tablecomments{Statistical values found for calibration data. For frames noted with subscript $c$ only the central square region of the image is evaluated. The Index-column gives the coordinates $\qty(x,\,y)$ for the maximum value pixel. For hole frames: $x \in\qty[0,480]$ and $x \in\qty[0,752]$. For central regions: $x,\, y \in\qty[0,300]$.}
+\tablecomments{Statistical values found for calibration data. For frames noted with subscript $c$ only the central square region of the image is evaluated. The Index-column gives the coordinates $\qty(x,\,y)$ for the maximum value pixel. For hole frames: $x \in\qty[0,480]$ and $y \in\qty[0,752]$. For central regions: $x,\, y \in\qty[0,300]$.}
 \tablecolumns{6}
 \tablehead{Frame & $\mu$ & Min & Max & Index & $\sigma$ }
 \startdata
@@ -368,6 +374,10 @@ $\qty(F_1 + F_2)_c$ & $178.648$ & $159$ & $198$ & $\qty[290,\, 175]$ & $1.554$
 
 \section{Conclusion and discussion}
 \label{sec:conclusion}
+\subsection{Color CCD}
+The main point we want to emphasize by looking at the RGB camera is the draw backs of using a color CCD compared the a monochromatic CCD. As we have seen, when analyzing exposures in color one has to account for aberrations differently for each wavelength. In addition, each pixel in the exposure needs to detect and store information distributed between three colors, effectively acting as three pixels in one. This limits the sensitivity and versatility of the CCD compared to a monochromatic CCD and triples the amount of data one needs to store for each image.
+
+Color might add esthetic values in an image, but we can determine color from the registered wavelength and edit in the colors later in the calibration process. Also, in astronomy we often want to observe light outside the visible spectrum. In these cases there are no conceptional meaning in separating the signal into red, green and blue pixels.
 
 % MONOCHROMATIC
 \subsection{Monochromatic CCD}
@@ -387,13 +397,13 @@ These differences can also be deduced by the histograms of the pixel values, alt
 
 % NOISE BIAS AND FLAT
 \paragraph{Composite frames}
-For the composite bias frame we see as expected the mean and min values approximately double the value of a single frame. This is not the case for the max value, indicating that the max values in the two bias frames is not in the same pixel. This is not ideal as the bias frames should be close to identical, but the non-static noise in the frames are quite low so the standard deviation is low as to be expected.
+For the composite bias frame we see as expected the mean and min values approximately double the value of a single frame. This is not the case for the max value, indicating that the max values in the two bias frames are not in the same pixel. This is not ideal as the bias frames should be close to identical, but the non-static noise in the frames are quite low so the standard deviation is low as to be expected.
 
 The values for the composite flat frames are as expected much higher, as these frames is not captured in darkness but in a uniform, or close to uniform, light. We see the noise in the composite frame is quite larger than in the bias frames, which is probably due to the primitive way we captured the flat frames. Holding a white sheet of paper in hand is not stable enough from frame to frame to produce the exact same uniform field in each frame.  The distance from the field to the camera may change, as well as the plane of the paper shifting. Still, the normalized noise in composite flat frames decrease exactly as expected by the factor $\frac{1}{\sqrt{n}}$.
 \paragraph{Conversion factor and read out noise}
-From our value for the conversion factor we see that of approximately $80$ electrons the CCD register 1 ADU. This is quite poor compared to the detectors used in the wide field cameras aboard the Hubble Space Telescope \citep{HSTdetectors}, which has a conversion factor in the range $\qty[1.52,\, 1.56]$. This comparison is not so fair as we are comparing a standard cheap CCD with high end equipment with a much deeper potential well. The size of the potential well is important as a too high conversion factor over floods the potential wells so that registered electrons leaks out of the well. Our camera would not handle the conversion factor used in the wide field cameras of the Hubble Space telescope, as the potential wells are far to shallow.
+From our value for the conversion factor we see that of approximately $80$ electrons the CCD register 1 ADU. This is quite poor compared to the detectors used in the wide field cameras aboard the Hubble Space Telescope \citep{HSTdetectors}, which has a conversion factor in the range $\qty[1.52,\, 1.56]$. This comparison is not so fair as we are comparing a standard cheap CCD with high end equipment with a much deeper potential well. The size of the potential well is important as a too high conversion factor over floods the potential wells so that registered electrons leaks out into neighboring pixels. Our camera would not handle the conversion factor used in the wide field cameras of the Hubble Space telescope, as the potential wells are far to shallow.
 
-The read out noise gives us a measurement of noise generated in the integration time of the exposure. The R.O.N. in electrons are calculated using the conversion factor and noise from a single bias frame, which ideally is only the read out noise in ADU. The standard deviation in a single frame is found from the relation of variance from multiple variables, which should behave accurately as we saw for the noise in composite flat frames.  This means that $68\%$ (within one $\sigma$) of the exposures taken with the same setup have registered electrons deviating from the true mean of electrons by $34.357$. With a conversion factor of $79.228$ [electrons/ADU] this R.O.N. is very good, contributing with approximately $0.5$ ADU. This value seems low, and would be interesting to control in further detail in the future.
+The read out noise gives us a measurement of noise generated in the integration time of the exposure. The R.O.N. in electrons are calculated using the conversion factor and noise from a single bias frame, which ideally is only the read out noise in ADU. The standard deviation in a single frame is found from the relation of variance from multiple variables, which should behave accurately as we saw for the noise in composite flat frames.  This means that $68\%$ (within one $\sigma$) of the exposures taken with the same setup have registered electrons deviating from the true mean of electrons by $34.357$. With a conversion factor of $79.228$ [electrons/ADU] this R.O.N. is very good, contributing with approximately $0.5$ ADU. This value seems low, and would be interesting to control in further detail in the future.\bigskip \bigskip
 
 \subsubsection{Corrected raw image}
 The correction process does not change the image significantly, but we can see a slight reduction in the intensity due to the random thermal noise from dark current in the raw image. This is corrected using the dark current frames, but as we have seen in the statistical analysis of the calibration data, the dark current generated is quite small. The correction is evident in the difference of $8.33$ in the mean value of the pixel count from the two images. In most of astronomical observations the raw exposures are prone to a much higher dark current being generated than in our simple setup, such that the correction for these effects are more important.
@@ -403,14 +413,13 @@ The most noticeable impurities in our raw image are the diffraction patterns and
 For future improvements we should take flat field correction frames in as close to the same optical path used for the proper image as possible. We should also use a much more stable source for the uniform field. In addition we could take more than 16 frames, as we have seen the noise in the flat fields decrease dramatically as we increase the number of pairs used.
 \medskip
 
-To conclude, the CCD is of huge importance in observational astronomy due to it's efficiency and applicability to multiple type of exposures. With increasing technology the CCDs approaches the theoretical maximum in most of the key features we need in a detector, as well as being versatile, small, cheap and easy to operate. They also provide easy methods for recording correction data, without having to change the setup too much. In addition to cameras, CCDs are in frequent use in many other instruments including spectrometers and interferometers.
-
+To conclude, the CCD is of huge importance in observational astronomy due to it's efficiency and applicability to multiple type of exposures. In addition to cameras, CCDs are in frequent use in many other instruments including spectrometers and interferometers. They provide good methods for recording correction data, without having to change the instrumental setup too much. In astronomy, and most other fields in physics, we tend not to use color CCDs as we get all relevant information from the wavelength of the light detected without the additional difficulties introduced by accounting for colors. With increasing technology the CCDs approaches the theoretical maximum in most of the key features we want in a detector, as well as being versatile, small, cheap and easy to operate.
 
 \begin{acknowledgements}
   Thanks to my colleagues and co-workers in the execution of the experiments: Nils-Ole Stutzer, Jon Dahl and Barathy Pirabahar.\\
 Thanks to our guide and supervisor in the lab: Ranghild Aurlien.
 \end{acknowledgements}
-
+\pagebreak
 \bibliographystyle{plainnat}
 \bibliography{ref}
 \clearpage
@@ -444,7 +453,7 @@ If we combine $n$ pairs of frames we know from \cref{eq: STD n variables} that t
 \begin{equation}
 	\sigma_{composite, normed} =  \frac{\sqrt{n}}{n}\sigma = \frac{\sigma}{\sqrt{n}}
 \end{equation}
-results in a reduction in the noise a a factor $\sqrt{n}$.
+results in a reduction in the noise a a factor $\frac{1}{\sqrt{n}}$.
 \clearpage
 
 \section{Additional figures}
@@ -501,17 +510,17 @@ results in a reduction in the noise a a factor $\sqrt{n}$.
 \begin{figure}[h!]
 	\begin{minipage}{.33\textwidth}
 	\centering
-	\includegraphics[width=0.75\linewidth]{./images/ex2/cali_red.pdf}
+	\includegraphics[width=0.7\linewidth]{./images/ex2/cali_red.pdf}
 	\caption{Image captured when finding focal point for red light.}
 	\end{minipage}%
 	\begin{minipage}{.33\textwidth}
 	\centering
-	\includegraphics[width=0.75\linewidth]{./images/ex2/cali_green.pdf}
+	\includegraphics[width=0.55\linewidth]{./images/ex2/cali_green.pdf}
 		\caption{Image captured when finding focal point for green light.}
 	\end{minipage}%
 	\begin{minipage}{.33\textwidth}
 	\centering
-	\includegraphics[width=0.75\linewidth]{./images/ex2/cali_blue.pdf}
+	\includegraphics[width=0.6\linewidth]{./images/ex2/cali_blue.pdf}
 		\caption{Image captured when finding focal point for blue light.}
 	\end{minipage}
 \end{figure}
@@ -519,7 +528,7 @@ results in a reduction in the noise a a factor $\sqrt{n}$.
 
 \section{Python scripts}
 \label{asec: Python scripts}
-All codes are written in Python 2.7.14 and ran on macOS 10.14.
+All codes are written in Python 2.7.14 and ran on macOS 10.14. All of the programs, the raw data, images and plots can also be found at 
 \subsection{Calculating pixel count for RGB camera}
 \lstinputlisting{./pythonscripts/RGBpixelcount.py}
 \subsection{Analyzing first bias and dark frame}
